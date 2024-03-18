@@ -149,14 +149,14 @@ export default {
       this.auth = JSON.parse(localStorage.getItem('auth'));
       if (this.auth == null) {
         // alert("Please, log in");
-        this.$router.push({ path: '/login' });
+        this.$router.replace({ path: '/login' });
       } else if(this.auth != null && this.auth.user.group==0)  {
         this.isLogin = true
         this.avataUser = this.auth.user.user_infor.avata
       }
       else{
         alert(" You are not Admin");
-        this.$router.push({ path: '/login' });
+        this.$router.replace({ path: '/login' });
 
       }
 
@@ -167,7 +167,7 @@ export default {
       try {
         const resultGet = await authService.getProject();
         this.projects = resultGet.data;
-        // console.log(this.projects);
+        console.log(this.projects);
       } catch (error) {
         console.log(error);
       }

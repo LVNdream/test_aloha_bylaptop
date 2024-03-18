@@ -1,5 +1,5 @@
 <template>
-  <div class="px-2 bg-white w-4/12 rounded-xl border-r-8">
+  <div class="px-2 bg-white w-4/12 rounded-xl border-r-8 border-t-8">
     <div class="flex justify-between mb-2">
       <div class="text-2xl bg-gray-100 p-2">
         <i class="fa-solid fa-computer"></i>
@@ -88,13 +88,12 @@
                   required
                 >
                   <option value="" selected>Choose majoring</option>
-                  
-                  <option value="1" selected> Back_End </option>
-                  <option value="2" selected> Front_End  </option>
-                  <option value="3" selected> Designer  </option>
-                  <option value="4" selected> Data_Analyst  </option>
-                  <option value="5" selected> BA  </option>
-                    
+
+                  <option value="1" selected>Back_End</option>
+                  <option value="2" selected>Front_End</option>
+                  <option value="3" selected>Designer</option>
+                  <option value="4" selected>Data_Analyst</option>
+                  <option value="5" selected>BA</option>
                 </select>
               </div>
 

@@ -139,19 +139,31 @@ class AuthService {
     });
   }
 
-
   async getTaskById(id) {
     return await axios({
       method: "get",
       url: `http://127.0.0.1:8000/api/mytask/${id}`,
     });
   }
-  
 
-  
-  
-  
-  
+  async updatePermission(accesstoken, data) {
+    return await axios({
+      method: "post",
+      url: "http://127.0.0.1:8000/api/task/updatepermission",
+      data,
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${accesstoken}`,
+      },
+    });
+  }
+
+  async getUser() {
+    return await axios({
+      method: "get",
+      url: "http://127.0.0.1:8000/api/management",
+    });
+  }
 }
 
 export default new AuthService();

@@ -38,12 +38,27 @@
             :id="worker.user_infor.id"
             @click="
               (e) => {
+                console.log(e.target.id);
                 this.handleDeleteWorker(parseInt(e.target.id));
               }
             "
             :class="{ hiddenEdit: isHiddenEdit }"
           >
             X
+          </div>
+          <div
+            class="absolute -bottom-2 text-xs -right-3 font-bold text-red-600 hover:cursor-pointer"
+            :id="worker.user_infor.id"
+            @click="
+              (e) => {
+                this.toggleModalUpdatePermission();
+                console.log(e.target.id);
+                this.user_infor_id = e.target.id;
+              }
+            "
+            :class="{ hiddenEdit: isHiddenEdit }"
+          >
+            Edit
           </div>
         </div>
       </div>
@@ -123,6 +138,17 @@
         :user_infor_id="this.auth.user.id"
       ></ModalUpdateDealine>
     </div>
+
+    <div
+      :class="{ hiddenModelUpdatePermission: isHiddenModalUpdatePermission }"
+    >
+      <ModalUpdatePermission
+        :toggleModalUpdatePermission="this.toggleModalUpdatePermission"
+        :handleUpdatePermission="this.handleUpdatePermission"
+        :task_id="this.task.id"
+        :user_infor_id="this.user_infor_id"
+      ></ModalUpdatePermission>
+    </div>
   </div>
 </template>
 <script>
@@ -130,28 +156,32 @@ import authService from "../services/auth.service";
 import ModalAddUser from "@/components/ModalAddUser.vue";
 import ModalUpdateStatus from "@/components/ModalUpdateStatus.vue";
 import ModalUpdateDealine from "@/components/ModalUpdateDealine.vue";
+import ModalUpdatePermission from "@/components/ModalUpdatePermission.vue";
 
 export default {
   components: {
     ModalAddUser,
     ModalUpdateStatus,
     ModalUpdateDealine,
+    ModalUpdatePermission,
   },
   props: {
     task: "",
   },
   data() {
     return {
+      user_infor_id: "",
       isHiddenEdit: true,
       auth: "",
       worker: "",
       isHiddenModalAddUser: true,
       isHiddenModalUpdateStatus: true,
       isHiddenModalUpdateDealine: true,
+      isHiddenModalUpdatePermission: true,
     };
   },
   created() {
-    console.log(this.task);
+    // console.log(this.task);
     this.auth = JSON.parse(localStorage.getItem("auth"));
     this.auth.user.group == 0
       ? (this.isHiddenEdit = false)
@@ -323,6 +353,35 @@ export default {
       }
     },
 
+    async handleUpdatePermission(data) {
+      try {
+        if (this.auth == null) {
+          // alert("Please, log in");
+          this.$router.push({ path: "/login" });
+        }
+        if (this.auth.user.group == 0) {
+          console.log(data, this.auth.access_token);
+          const resultUpdatePermission = await authService.updatePermission(
+            this.auth.access_token,
+            data
+          );
+
+          if (resultUpdatePermission.status == 200) {
+            alert(resultUpdatePermission.data);
+          } else {
+            alert("Have error");
+            console.log(resultUpdatePermission);
+          }
+
+          this.$router.go(0);
+        } else {
+          alert("You are not Admin");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     toggleModalAddUser() {
       this.isHiddenModalAddUser = !this.isHiddenModalAddUser;
     },
@@ -331,6 +390,9 @@ export default {
     },
     toggleModalUpdateStatus() {
       this.isHiddenModalUpdateStatus = !this.isHiddenModalUpdateStatus;
+    },
+    toggleModalUpdatePermission() {
+      this.isHiddenModalUpdatePermission = !this.isHiddenModalUpdatePermission;
     },
   },
 };
@@ -346,6 +408,9 @@ export default {
   display: none;
 }
 .hiddenModelUpdateDealine {
+  display: none;
+}
+.hiddenModelUpdatePermission {
   display: none;
 }
 </style>

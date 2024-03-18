@@ -110,12 +110,15 @@ export default {
   methods: {
     checkLogin() {
       this.auth = JSON.parse(localStorage.getItem("auth"));
-      if (this.auth == null) {
+      if (
+        this.auth != null &&
+        this.auth.user.user_infor.id == this.$route.params.id
+      ) {
         // alert("Please, log in");
-        this.$router.push({ path: "/login" });
-      } else {
         this.isLogin = true;
         this.avataUser = this.auth.user.user_infor.avata;
+      } else {
+        this.$router.replace({ path: "/login" });
       }
     },
 
@@ -158,7 +161,7 @@ export default {
             extask.task = {
               status: { status_name: status.status_name },
               id: extask.task.id,
-              project_name:extask.task.project.project_name,
+              project_name: extask.task.project.project_name,
               task_name: extask.task.task_name,
               task_tag: extask.task.task_tag,
               created_at: extask.task.created_at,

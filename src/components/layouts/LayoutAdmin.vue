@@ -22,18 +22,23 @@
         />
       </div>
       <div class="mt-6 mb-2 mx-4 text-lg">
-        <div
-          class="font-semibold mx-3 px-4 py-2 border rounded-xl border-white hover:bg-blue-600 hover:border hover:rounded-xl hover:border-blue-800 hover:text-white"
+        <router-link to="/admin" class="text-black decoration-transparent">
+          <div
+            class="font-semibold mx-3 px-4 py-2 border rounded-xl border-white hover:bg-blue-600 hover:border hover:rounded-xl hover:border-blue-800 hover:text-white"
+          >
+            <i class="fa-solid fa-border-all text-xl text-gray-400"></i>
+            Dashboard
+          </div></router-link
         >
-          <i class="fa-solid fa-border-all text-xl text-gray-400"></i> Dashboard
-        </div>
       </div>
       <div class="mb-2 mx-4 text-lg">
-        <div
-          class="font-semibold mx-3 px-4 py-2 border rounded-xl border-white hover:bg-blue-600 hover:border hover:rounded-xl hover:border-blue-800 hover:text-white"
-        >
-          <i class="fa-solid fa-users text-xl text-gray-400"></i> Worker
-        </div>
+        <router-link to="" class="text-black decoration-transparent">
+          <div
+            class="font-semibold mx-3 px-4 py-2 border rounded-xl border-white hover:bg-blue-600 hover:border hover:rounded-xl hover:border-blue-800 hover:text-white"
+          >
+            <i class="fa-solid fa-users text-xl text-gray-400"></i> Worker
+          </div>
+        </router-link>
       </div>
       <div class="mb-2 mx-4 text-lg">
         <div

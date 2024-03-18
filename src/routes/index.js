@@ -4,6 +4,8 @@ import LayoutAdmin from "@/components/layouts/LayoutAdmin.vue";
 
 import AdminHome from "@/views/AdminHome.vue";
 import MyTask from "@/views/MyTask.vue";
+import Worker from "@/views/Worker.vue";
+
 
 import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
@@ -26,6 +28,17 @@ const Layout = [
       {
         path: "",
         component: MyTask,
+      },
+    ],
+  },
+
+  {
+    path: "/usermanagement",
+    component: LayoutAdmin,
+    children: [
+      {
+        path: "",
+        component:Worker ,
       },
     ],
   },
