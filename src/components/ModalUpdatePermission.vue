@@ -4,7 +4,7 @@
       <button class="btn btn-danger button-close" @click="this.toggle">
         X
       </button>
-
+Modal update permission
       <form @submit.prevent="this.updatePermission">
         <div class="inforOrder">
           <div class="mt-8">

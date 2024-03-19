@@ -126,7 +126,7 @@
         :toggleModalUpdateStatus="this.toggleModalUpdateStatus"
         :handleUpdateStatus="this.handleUpdateStatus"
         :task_id="this.task.id"
-        :user_infor_id="this.auth.user.id"
+        :user_infor_id="this.auth.user.user_infor.id"
       ></ModalUpdateStatus>
     </div>
 
@@ -298,7 +298,7 @@ export default {
     async handleUpdateStatus(data) {
       try {
         if (this.auth == null) {
-          // alert("Please, log in");
+          
           this.$router.push({ path: "/login" });
         }
         if (this.auth.user.group == 0 || this.auth.user.group == 1) {
@@ -356,7 +356,6 @@ export default {
     async handleUpdatePermission(data) {
       try {
         if (this.auth == null) {
-          // alert("Please, log in");
           this.$router.push({ path: "/login" });
         }
         if (this.auth.user.group == 0) {
