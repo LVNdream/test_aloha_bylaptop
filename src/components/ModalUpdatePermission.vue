@@ -62,7 +62,7 @@ export default {
     user_infor_id: "",
   },
   created() {
-    // this.getStatus();
+   
   },
   methods: {
     toggle() {
@@ -76,7 +76,7 @@ export default {
         task_id: this.task_id,
         user_infor_id: this.user_infor_id,
       };
-    //   console.log(data);
+  
       this.handleUpdatePermission(data);
     },
   },

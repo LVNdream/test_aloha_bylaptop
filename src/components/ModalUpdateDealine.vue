@@ -47,7 +47,7 @@ export default {
     user_infor_id: "",
   },
   created() {
-    // this.getMajoring();
+    
   },
   methods: {
     toggle() {

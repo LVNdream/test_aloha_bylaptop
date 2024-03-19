@@ -54,7 +54,7 @@ export default {
     user_infor_id: "",
   },
   created() {
-    // this.getStatus();
+   
   },
   methods: {
     async getStatus() {
@@ -76,7 +76,7 @@ export default {
         task_id: this.task_id,
         user_infor_id: this.user_infor_id,
       };
-      // console.log(data);
+      
       this.handleUpdateStatus(data);
     },
   },
@@ -109,14 +109,13 @@ export default {
     right: 5px;
     font-size: 13px;
     text-align: center;
-    /* // vertical-align: middle; */
+  
     display: inline-block;
   }
 
   .content {
     position: relative;
-    /* // left: 13%;
-      // transform: translate(-75%,0); */
+
     width: 40%;
     height: 70%;
     background: white;
@@ -144,7 +143,7 @@ export default {
 }
 
 .navbar {
-  /* // margin:0 15px; */
+ 
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.16);
 }
 

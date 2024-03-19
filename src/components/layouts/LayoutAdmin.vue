@@ -32,7 +32,7 @@
         >
       </div>
       <div class="mb-2 mx-4 text-lg">
-        <router-link to="" class="text-black decoration-transparent">
+        <router-link to="/usermanagement" class="text-black decoration-transparent">
           <div
             class="font-semibold mx-3 px-4 py-2 border rounded-xl border-white hover:bg-blue-600 hover:border hover:rounded-xl hover:border-blue-800 hover:text-white"
           >

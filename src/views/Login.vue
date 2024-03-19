@@ -155,7 +155,7 @@ export default {
           email: this.email,
           password: this.password,
         };
-        // console.log(data);
+       
         const resutlLogin = await authService.login(data);
 
         if (resutlLogin.status == 200) {
@@ -167,10 +167,9 @@ export default {
           localStorage.setItem("auth", JSON.stringify(auth));
 
           const profile = resutlLogin.data;
-          // console.log(profile.user.group);
           if ( profile.user.group == 0) {
             this.$router.push({ path: "/admin" });
-            // console.log(123123);
+           
           } else if ( profile.user.group == 1) {
             this.$router.push({
               path: `/mytask/${profile.user.user_infor.id}`,

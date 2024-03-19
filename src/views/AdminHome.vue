@@ -148,7 +148,7 @@ export default {
     checkLogin() {
       this.auth = JSON.parse(localStorage.getItem('auth'));
       if (this.auth == null) {
-        // alert("Please, log in");
+        
         this.$router.replace({ path: '/login' });
       } else if(this.auth != null && this.auth.user.group==0)  {
         this.isLogin = true
@@ -263,7 +263,7 @@ export default {
 };
 </script>
 <style scoped>
-.avataUser{display: none;}
+
 
 .optionLogout{
   position:absolute;
@@ -302,14 +302,13 @@ export default {
     right: 5px;
     font-size: 13px;
     text-align: center;
-    /* // vertical-align: middle; */
+
     display: inline-block;
   }
 
   .content {
     position: relative;
-    /* // left: 13%;
-    // transform: translate(-75%,0); */
+   
     width: 40%;
     height: 70%;
     background: white;

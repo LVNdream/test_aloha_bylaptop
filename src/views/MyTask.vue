@@ -114,7 +114,7 @@ export default {
         this.auth != null &&
         this.auth.user.user_infor.id == this.$route.params.id
       ) {
-        // alert("Please, log in");
+        
         this.isLogin = true;
         this.avataUser = this.auth.user.user_infor.avata;
       } else {
@@ -127,7 +127,7 @@ export default {
         const resultGet = await authService.getStatus();
         this.listStatus = resultGet.data;
         this.getTasks();
-        // console.log(this.listStatus);
+       
       } catch (error) {
         console.log(error);
       }
@@ -137,7 +137,7 @@ export default {
       try {
         const resultGet = await authService.getTaskById(this.user_infor_id);
         this.tasks = resultGet.data;
-        // console.log(this.tasks);
+    
         this.sortListTask();
       } catch (error) {
         console.log(error);
@@ -145,7 +145,7 @@ export default {
     },
 
     sortListTask() {
-      //   console.log(this.listStatus);
+    
       this.listStatusSorted = this.listStatus.map((status) => {
         let data = { ...status, task: [] };
         // console.log(status);
@@ -153,11 +153,7 @@ export default {
           //   console.log(extask.task.status_id);
 
           if (status.id == extask.task.status_id) {
-            // let worker = [];
-            // extask.task.worker.forEach((item) => {
-            //   worker.push(item.user_infor);
-            // });
-            // console.log(listUserInfor);
+          
             extask.task = {
               status: { status_name: status.status_name },
               id: extask.task.id,
@@ -173,7 +169,7 @@ export default {
         });
         return data;
       });
-      // console.log(this.listStatusSorted);
+      
     },
 
     async handleLogout() {

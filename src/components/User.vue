@@ -81,48 +81,71 @@
 
                   have tasks
                 </div>
-                <div class="table border-2 relative">
-                  <div
-                    class="bg-red-600 text-white w-6 h-6 text-center flex items-center justify-center absolute right-1 top-1"
-                    @click="
-                      () => {
-                        this.isHiddenWatchTask=true;
-                      }
-                    "
-                  >
-                    X
+                <div>
+                  <div class="flex my-2 gap-2 text-yellow-700">
+                    <div>Filter By:</div>
+                    <select
+                      v-model="this.status_id"
+                      class="text-white font-bold bg-blue-600"
+                      @change="
+                        () => {
+                          this.filterTaskByStatus(this.status_id);
+                        }
+                      "
+                    >
+                      <option value="">Choose status</option>
+                      <option
+                        :value="itemStatus.id"
+                        v-for="itemStatus in this.listStatus"
+                      >
+                        {{ itemStatus.status_name }}
+                      </option>
+                    </select>
                   </div>
-                  <table class="table table-borderless table-hover">
-                    <thead>
-                      <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Project</th>
-                        <th scope="col">Task</th>
-                        <th scope="col">Tag</th>
 
-                        <th scope="col">Deadline</th>
+                  <div class="table border-2 relative">
+                    <div
+                      class="bg-red-600 text-white w-5 h-5 text-center flex items-center justify-center absolute right-1 top-1"
+                      @click="
+                        () => {
+                          this.isHiddenWatchTask = true;
+                        }
+                      "
+                    >
+                      X
+                    </div>
+                    <table class="table table-borderless table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">ID</th>
+                          <th scope="col">Project</th>
+                          <th scope="col">Task</th>
+                          <th scope="col">Tag</th>
 
-                        <th scope="col">
-                          <div class="text-green-600">
-                            <i class="fa-solid fa-circle"></i> Status
-                          </div>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody v-for="itemTask in this.listTasks">
-                      <tr>
-                        <th scope="row">{{ itemTask.task.id }}</th>
-                        <td class="">
-                          {{ itemTask.task.project.project_name }}
-                        </td>
-                        <td>{{ itemTask.task.task_name }}</td>
-                        <td>{{ itemTask.task.task_tag }}</td>
+                          <th scope="col">Deadline</th>
 
-                        <td>{{ itemTask.task.dealine }}</td>
-                        <td>{{ itemTask.task.status.status_name }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                          <th scope="col">
+                            <div class="text-green-600">
+                              <i class="fa-solid fa-circle"></i> Status
+                            </div>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody v-for="itemTask in this.listTasksFilter">
+                        <tr>
+                          <th scope="row">{{ itemTask.task.id }}</th>
+                          <td class="">
+                            {{ itemTask.task.project.project_name }}
+                          </td>
+                          <td>{{ itemTask.task.task_name }}</td>
+                          <td>{{ itemTask.task.task_tag }}</td>
+
+                          <td>{{ itemTask.task.dealine }}</td>
+                          <td>{{ itemTask.task.status.status_name }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -134,13 +157,17 @@
 </template>
 <script>
 import WatchTask from "@/components/WatchTask.vue";
+import authService from "@/services/auth.service";
 export default {
   data() {
     return {
       isHiddenWatchTask: true,
       listTasks: "",
+      listTasksFilter: "",
       get_user_infor: "",
       email: "",
+      listStatus: "",
+      status_id: "",
     };
   },
   props: {
@@ -149,6 +176,11 @@ export default {
   components: {
     WatchTask,
   },
+
+  created() {
+    this.getStatus();
+  },
+
   methods: {
     toggleWatchTask(id) {
       this.isHiddenWatchTask = false;
@@ -158,10 +190,31 @@ export default {
           return itemUser.id == id;
         });
         this.listTasks = user[0].worker;
+        this.listTasksFilter = this.listTasks;
         this.get_user_infor = user[0];
         this.email = this.get_user_infor.user.email;
-        console.log(this.get_user_infor.user.email);
       }
+    },
+
+    async getStatus() {
+      try {
+        const resultGet = await authService.getStatus();
+        this.listStatus = resultGet.data;
+      
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    filterTaskByStatus(id) {
+      if (id == "") {
+        this.listTasksFilter = this.listTasks;
+      } else {
+        this.listTasksFilter = this.listTasks.filter((itemTask) => {
+          return itemTask.task.status.id == id;
+        });
+      }
+      console.log(this.listTasksFilter);
     },
   },
 };

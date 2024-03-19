@@ -41,7 +41,7 @@ export default {
     status: "",
   },
   created() {
-    // this.getMajoring();
+    
     this.status.task
   },
   data() {

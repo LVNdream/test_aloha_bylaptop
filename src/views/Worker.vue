@@ -47,20 +47,17 @@
         <div
           class="text-center mx-2 mt-2 w-12 h-12 bg-gray-200 p-1 rounded-full hover:cursor-pointer hoverAvata"
         >
-          <!-- :class="{ avataUser: !this.isLogin }" -->
-          <!-- <img class="h-10 w-10 rounded-full" :src="this.avataUser" /> -->
-          <!-- 
+          <img class="h-10 w-10 rounded-full" :src="this.avataUser" />
+
           <div
             @click="this.handleLogout"
             class="optionLogout text-red-500 mt-2 bg-slate-300 w-max px-2 py-1"
           >
             Log out
-          </div> -->
+          </div>
         </div>
       </div>
     </div>
-
-    <!-- <div v-for="user in this.users">asdasdasdsad</div> -->
 
     <div>
       <User :users="this.users"> </User>
@@ -75,6 +72,8 @@ export default {
   data() {
     return {
       users: "",
+      auth: "",
+      avataUser: "",
     };
   },
   components: {
@@ -83,9 +82,23 @@ export default {
 
   created() {
     this.getUsers();
+    this.checkLogin();
   },
 
   methods: {
+    checkLogin() {
+      this.auth = JSON.parse(localStorage.getItem("auth"));
+      if (this.auth == null) {
+        
+        this.$router.replace({ path: "/login" });
+      } else if (this.auth != null && this.auth.user.group == 0) {
+        this.isLogin = true;
+        this.avataUser = this.auth.user.user_infor.avata;
+      } else {
+        alert(" You are not Admin");
+        this.$router.replace({ path: "/login" });
+      }
+    },
     async getUsers() {
       try {
         const resultGet = await authService.getUser();
@@ -95,10 +108,41 @@ export default {
         console.log(error);
       }
     },
+
+    async handleLogout() {
+      try {
+        this.auth = JSON.parse(localStorage.getItem("auth"));
+
+        if (this.auth == null) return alert("Please log in");
+
+        const resultLogOut = await authService.logout(this.auth.access_token);
+
+        if (resultLogOut.status == 200) {
+          alert(resultLogOut.data.message);
+          localStorage.removeItem("auth");
+          this.$router.push({ path: "/login" });
+        } else {
+          alert("Log out faild");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 };
 </script>
 <style scoped>
+.optionLogout {
+  position: absolute;
+  display: none;
+  bottom: -60%;
+}
+.hoverAvata {
+  position: relative;
+}
+.hoverAvata:hover .optionLogout {
+  display: block;
+}
 .users-container {
   font-size: 0.875rem;
   font-weight: 500;

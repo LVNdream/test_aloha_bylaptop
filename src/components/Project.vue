@@ -150,7 +150,7 @@ export default {
     addTask: "",
   },
   created() {
-    // this.getMajoring();
+    
   },
   data() {
     return {
@@ -170,7 +170,7 @@ export default {
       try {
         const resultGet = await authService.getMajoring();
         this.majorings = resultGet.data;
-        // console.log(this.majorings);
+      
       } catch (error) {
         console.log(error);
       }
@@ -178,10 +178,10 @@ export default {
 
     async getUserByMajoring() {
       try {
-        // console.log(this.majoring_id)
+        
         const resultGet = await authService.getUserByMajoring(this.majoring_id);
         this.usersByMajoring = resultGet.data;
-        // console.log(this.usersByMajoring);
+       
       } catch (error) {
         console.log(error);
       }
@@ -231,14 +231,13 @@ export default {
     right: 5px;
     font-size: 13px;
     text-align: center;
-    /* // vertical-align: middle; */
+   
     display: inline-block;
   }
 
   .content {
     position: relative;
-    /* // left: 13%;
-    // transform: translate(-75%,0); */
+   
     width: 40%;
     height: 70%;
     background: white;
@@ -266,7 +265,7 @@ export default {
 }
 
 .navbar {
-  /* // margin:0 15px; */
+ 
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.16);
 }
 

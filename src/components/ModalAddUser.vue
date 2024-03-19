@@ -87,7 +87,7 @@ export default {
         user_infor_id: this.user_infor_id,
         task_id: this.task_id,
       };
-        //   console.log(data);
+        
         this.handleAddUser(data);
     },
 
@@ -95,7 +95,7 @@ export default {
       try {
         const resultGet = await authService.getMajoring();
         this.majorings = resultGet.data;
-        // console.log(this.majorings);
+       
       } catch (error) {
         console.log(error);
       }
@@ -141,14 +141,13 @@ export default {
     right: 5px;
     font-size: 13px;
     text-align: center;
-    /* // vertical-align: middle; */
+  
     display: inline-block;
   }
 
   .content {
     position: relative;
-    /* // left: 13%;
-    // transform: translate(-75%,0); */
+   
     width: 40%;
     height: 70%;
     background: white;
